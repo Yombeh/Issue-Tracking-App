@@ -1,0 +1,88 @@
+﻿@model List<Issue_Tracking_App.Models.SolvedViewModel>
+<style >
+    .list{
+        margin-top: 60px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div class="list">
+    @if (!String.IsNullOrEmpty(ViewBag.AddSolved))
+    {
+        <div id="addAlert" class="alert alert-success" role="alert">
+            @ViewBag.AddSolved
+        </div>
+
+    }
+    @if (!String.IsNullOrEmpty(ViewBag.EditSolved))
+    {
+        <div id="editAlert" class=" alert alert-success" role="alert">
+            @ViewBag.EditSolved
+        </div>
+    }
+    @if (!String.IsNullOrEmpty(ViewBag.DeleteSolved))
+    {
+        <div id="deleteAlert" class="alert alert-danger" role="alert">
+            @ViewBag.DeleteSolved
+        </div>
+    }
+
+    <script>
+        $(document).ready(function() {
+            setTimeout(function() {
+
+                $('#addAlert').alert('close');
+                $('#editAlert').alert('close');
+                $('#deleteAlert').alert('close');
+            }, 1000);
+        });
+
+    </script>
+   
+<h2 >All Resolved Issues </h2>
+</div>
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>The Issue</th>
+
+            <th>Solved by</th>
+
+            <th>Severity</th>
+
+            <th>Created</th>
+
+            <th>Date</th>
+
+            <th>Duration</th>
+
+            <th>Comment</th>
+        </tr>
+
+    </thead>
+    <tbody>
+        @foreach (var solved in Model.OrderByDescending(s => s.IssueNumber))
+        {
+            <tr>
+                <td>@solved.IssuesID</td>
+                <td>@solved.AssigneeID</td>
+                <td>@solved.SeverityID</td>
+                <td>@solved.Created</td>
+                <td>@solved.DatePicker</td>
+                <td>@solved.EstimateTime</td>
+                <td>@solved.Comment</td>
+                <td>
+                    <a class="btn btn-primary" type="submit" asp-controller="Tracking" asp-action="EditSolved" asp-route-id="@solved.IssueNumber" >Edit</a>
+
+                    <a class="btn btn-danger" href="@Url.Action("DeleteSolved","Tracking", new{ id= solved.IssueNumber})"
+                       onclick="return confirm('Are you sure you want to delete this issue')">Delete</a>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+
+
+</table>

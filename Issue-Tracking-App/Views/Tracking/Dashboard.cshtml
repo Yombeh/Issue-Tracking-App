@@ -1,0 +1,216 @@
+﻿@model IEnumerable<DashboardViewModel>
+<style>
+    .Container
+    {
+        width: 50%;
+        height: 50%;
+    }
+    .Container1
+    {
+        width: 70%;
+        height: 70%;
+       margin-left: auto;
+       margin-right: auto;
+    }
+    .line
+    {
+        display: flex;
+    }
+</style>
+  
+    <div style="background-color: deepskyblue; padding: 10px; text-align: center; margin-top:80px;">
+    <h1 style="color: white;">ISSUE TRACKING APP</h1>
+     </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"> </script>
+
+<div class="mt-3">
+
+    <div class="line">
+    <div class="Container">
+    <canvas id="issueChart" width="100" height="100"></canvas>
+    </div>
+
+    <div class="Container">
+    <canvas id="lineChart" width="10" height="10"></canvas>
+    </div>
+    
+    </div >
+    
+</div>
+
+<script>
+    // Extract data from the model
+    var statuses = [];
+    var counts = [];
+    @foreach (var item in Model)
+    {
+        var statusName = "";
+        switch (@item.StatusID)
+        {
+            case 1:
+                statusName = "To be Tested";
+                break;
+            case 2:
+                statusName = "In Progress";
+                break;
+            case 3:
+                statusName = "Open";
+                break;
+            case 4:
+                statusName = "Closed";
+                break;
+            default:
+                statusName = "Unknown";
+                break;
+        }
+
+        <text>statuses.push('@statusName');</text>
+        <text>counts.push('@item.IssueCount');</text>
+
+    }
+
+
+
+    // Create a bar chart
+    var ctx = document.getElementById('issueChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+
+            labels: statuses,
+            datasets: [{
+                label: 'Issues By Status',
+                data: counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+
+            }]
+        },
+
+
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    // Extract data from the model
+    var statuses = [];
+    var counts = [];
+    @foreach (var item in Model)
+    {
+        var statusName = "";
+        switch (@item.StatusID)
+        {
+            case 1:
+                statusName = "To be Tested";
+                break;
+            case 2:
+                statusName = "In Progress";
+                break;
+            case 3:
+                statusName = "Open";
+                break;
+            case 4:
+                statusName = "Closed";
+                break;
+            default:
+                statusName = "Unknown";
+                break;
+        }
+
+        <text>statuses.push('@statusName');</text>
+        <text>counts.push('@item.IssueCount');</text>
+
+    }
+
+
+    // Create a line chart
+    var ctx = document.getElementById('lineChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+
+            labels: statuses,
+            datasets: [{
+                label: 'Issues By Status',
+                data: counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+
+            }]
+        },
+
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+     
+     var statuses = [];
+    var counts = [];
+    @foreach (var item in Model)
+    {
+        var statusName = "";
+        switch (@item.StatusID)
+        {
+            case 1:
+                statusName = "To be Tested";
+                break;
+            case 2:
+                statusName = "In Progress";
+                break;
+            case 3:
+                statusName = "Open";
+                break;
+            case 4:
+                statusName = "Closed";
+                break;
+            default:
+                statusName = "Unknown";
+                break;
+        }
+
+        <text>statuses.push('@statusName');</text>
+        <text>counts.push('@item.IssueCount');</text>
+
+    }
+
+
+    // Create a line chart
+    var ctx = document.getElementById('myDoughnut').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+
+            labels: statuses,
+            datasets: [{
+                label: 'Issues By Status',
+                data: counts,
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+
+            }]
+        },
+
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+</script>
+

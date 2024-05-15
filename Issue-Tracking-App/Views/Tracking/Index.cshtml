@@ -1,0 +1,100 @@
+﻿@model Issue_Tracking_App.Models.ListModels;
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+        <style>
+            .tittle
+            {
+                margin-top: 20px;
+                align-items: center;
+
+            }
+        </style>
+        
+        <meta charset="utf-8">
+        <title>Issue Tracking App</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    </head>
+
+    <body style="padding-top: 55px;">
+
+        <div class="tittle" style="color: navy">
+        <h2>CREATE ISSUE</h2>
+        </div>
+
+        
+        <form method="Post">
+
+        <div class="mt-3">
+          <label class="form-label">Summary</label>
+          <input type="text" class="form-control" asp-for="Summary" >
+         
+        </div>
+
+
+        <div class="mt-3">
+        <label class="form-label">Status</label>
+        <select class="form-control" name="StatusID">
+
+        <option value="" disabled selected>Select Status</option>
+                
+                    @foreach (var status in Model.Statuses)
+                    {
+                        <option value="@status.Id">@status.StatusName</option>
+                    }
+                
+        </select>
+
+        </div>
+
+        <div class="mt-3">
+         <label class="form-label">Date</label>
+            <input type="text" class="form-control" id="datepicker" asp-for="DateTimePicker">
+        </div>
+
+        <div>
+            <label class="form-label">Estimate Time(Hours)</label>
+        <input class="form-control"type="text"  asp-for="EstimateTime">
+        </div>
+
+        <div class="mt-3">
+        <label class="form-label">Assignee</label>
+        <select class="form-control" name="AssigneeID">
+        <option value="" disabled selected >Select Assignee</option>
+               
+            @foreach (var assignee in Model.Assignees){
+            <option value="@assignee.Id">@assignee.AssigneeName</option>
+            }
+                
+        </select>
+        </div>    
+         <div class="mt-3">
+         <label class="form-label">Severity</label>
+         <select class="form-control" name="SeverityID">
+
+         <option value="" disabled selected>Select Severity</option>
+                
+                    @foreach (var severity in Model.Severities)
+                    {
+                        <option value="@severity.Id">@severity.SeverityName</option>
+                    }
+                
+            </select>
+          
+        
+    </div>
+    <div class="mt-3">
+    <button class="btn btn-primary" type="submit">Send</button>
+    </div>
+    </form>
+
+    </body>
+    
+</html>
+
+

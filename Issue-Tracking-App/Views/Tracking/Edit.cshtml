@@ -1,0 +1,107 @@
+﻿
+<style>
+    .edit
+    {
+        margin-top:60px;
+    }
+</style>
+@model Issue_Tracking_App.Models.EditviewModel;
+
+@if (Model is null)
+{
+
+    <h2>Not Found</h2>
+
+}
+else
+{
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <title>Issue Tracking App</title>
+    </head>
+
+    <body>
+    <div class="edit">
+
+            <h2>Edit Issue</h2>
+
+        <form  asp-controller="Tracking" asp-action="Edit" method="post">
+
+            <div class="mt-3">
+                <label class="form-label">Summary</label>
+                <input type="text" class="form-control" asp-for="Summary">
+
+            </div>
+
+
+            <div class="mt-3">
+                <label class="form-label">Status</label>
+                <select class="form-control" asp-for="StatusID">
+                    <option value="" disabled selected>Select Status</option>
+
+                    @foreach (var status in Model.Statuses)
+                    {
+
+                        <option value="@status.Id">@status.StatusName</option>
+
+                    }
+
+                </select>
+            </div>
+
+            <div class="mt-3">
+
+                <label class="form-label">Estimate Time</label>
+                <input type="text" class="form-control" asp-for="EstimatedTime">
+                
+            </div>
+
+            <div>
+                <label class="form-label">Date</label>
+                <input type="text" class="form-control" id="datepicker" asp-for="DateTimePicker" />
+            </div>
+
+
+            <div class="mt-3">
+
+                <label class="form-label">Assignee</label>
+                <select class="form-control" asp-for="AssigneeID">
+                    <option value="" disabled selected>Select Assignee</option>
+
+                    @foreach (var assignee in Model.Assignees)
+                    {
+                        <option value="@assignee.Id">@assignee.AssigneeName</option>
+                    }
+
+                </select>
+
+            </div>
+
+
+
+            <div class="mt-3">
+                <label class="form-label">Severity</label>
+                <select class="form-control" asp-for="SeverityID">
+                    <option value="" disabled selected>Select Severity</option>
+
+                    @foreach (var severity in Model.Severities)
+                    {
+                        <option value="@severity.Id">@severity.SeverityName</option>
+                    }
+                </select>
+
+
+            </div>
+            <div class="mt-3">
+
+                <button class="btn btn-primary ms-3" type="submit">Save</button>
+               
+            </div>
+        </form>
+    </div>
+     </body>
+
+    </html>
+}

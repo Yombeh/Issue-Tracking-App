@@ -1,0 +1,74 @@
+﻿@model Issue_Tracking_App.Models.Solved;
+<style>
+    .form{
+     margin-top: 60px;
+    }
+</style>
+
+
+
+<div class="form">
+    <form method="post">
+    <h2>Add Resolved Issues</h2>
+<div class="mt-3">
+
+    <label class="form-label">Issue </label>
+    <Select class="form-control" asp-for="IssuesID">
+            <option value="" disabled selected>Select The Issue</option>
+
+        @foreach(var issue in Model.Issues)
+        {
+            <option value="@issue.IssueNumber">@issue.Summary </option> 
+        }
+        
+    </Select>
+    
+</div>
+
+
+
+<div class="mt-3">
+    <label class="form-label">Solved By</label>
+        <select class="form-control" asp-for="AssigneeID">
+            <option value="" disabled selected>Select The Assignee</option>
+            @foreach(var assignee in Model.Assignees)
+            {
+                <option value="@assignee.Id">@assignee.AssigneeName</option>
+            }
+        </select>
+</div>
+
+
+<div class="mt-3">
+    <label class="form-label">Severity </label>
+        <select class="form-control" asp-for="SeverityID">
+            <option value="" disabled selected>Select The Severity</option>
+            @foreach (var Severity in Model.Severities)
+            {
+                <option value="@Severity.Id">@Severity.SeverityName</option>
+            }
+        </select>
+
+</div>
+
+  <div>
+      <label class="form-label">Date</label>
+      <input class="form-control" id="datepicker" asp-for="DatePicker"/>
+  </div>
+
+  <div class="mt-3">
+      <label class="form-label">Duration(Hours)</label>
+      <input class="form-control" type="text" asp-for="EstimateTime">
+  </div>
+
+    <div class="mt-3">
+        <label class="form-label">Add Comment</label>
+
+        <input class="form-control" type="text" asp-for="Comment">
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-primary" type="submit"> Send</button>
+    </div>
+</form>
+</div>
