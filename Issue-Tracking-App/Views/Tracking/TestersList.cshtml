@@ -1,0 +1,49 @@
+﻿@model List<Issue_Tracking_App.Models.TesterViewModel>
+<h2 style="margin-top: 80px;">Issues Awaiting Your Test @ViewBag.TestersName </h2>
+
+    <table class="table table-bordered  table-striped">
+        <thead>
+            <tr>
+
+                <th>User</th>
+                <th>Application</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Test</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+           
+            @foreach(var report in Model.OrderByDescending(s => s.Id))
+            {
+                <tr>
+                <td>@report.userName</td>
+                <td>@report.appName</td>
+                <td>@report.description</td>
+                <td>@report.date</td>
+                <td>@if(report.status == "New")
+                    {
+                        <span class="badge bg-secondary">@report.status</span>
+                    }else if(report.status == "Seen")
+                    {
+                        <span class="badge bg-primary">@report.status</span>
+                    }else if(report.status == "Done")
+                    {
+                        <span class="badge bg-success">@report.status</span>
+                    }else if(report.status == "Not Solved")
+                    {
+                        <span class="badge bg-danger">@report.status</span>
+                    }
+                </td>
+
+                <td>
+                    <a class="btn btn-primary" asp-action="TestersAction" asp-controller="Tracking" asp-route-id="@report.Id">Test</a>
+                </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>

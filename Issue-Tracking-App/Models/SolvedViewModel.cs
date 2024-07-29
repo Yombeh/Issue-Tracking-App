@@ -13,17 +13,15 @@ namespace Issue_Tracking_App.Models
 
         public string DatePicker { get; set; }
 
-
         public int EstimateTime { get; set; }
 
         public DateTime Created { get; set; } = DateTime.Now;
 
-
         public string AssigneeID { get; set; }
-
 
         public string SeverityID { get; set; }
 
         public String Comment { get; set; }
+
     }
 }

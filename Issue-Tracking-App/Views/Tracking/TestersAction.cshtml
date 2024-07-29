@@ -1,0 +1,42 @@
+﻿@model Issue_Tracking_App.Models.TesterViewModel
+
+<h2 style=" margin-top: 60px">Test This Issue.</h2>
+<table class="table table-bordered table-striped">
+
+    <tr>
+        <th>User</th>
+        <td>@Model.IssueCreated.userName</td>
+    </tr>
+   
+   <tr>
+       <th>Application</th>
+       <td>@Model.appName</td>
+   </tr>
+
+    <tr>
+        <th>Description</th>
+        <td>@Model.IssueCreated.Description</td>
+    </tr>
+
+    <tr>
+        <th>Date</th>
+        <td>@Model.IssueCreated.DatePicker</td>
+    </tr>
+
+    <tr>
+        <th>Created</th>
+        <td>@Model.IssueCreated.CreatedDate</td>
+    </tr>
+
+    <tr>
+        <th>Admin</th>
+        <td>@Model.Comment</td>
+        <tr>
+</table>
+
+<div >
+    <a class="btn btn-success" asp-action="IssueSolved" asp-controller="Tracking" asp-route-id="@Model.Id">Solved</a>
+
+    <a class="md-4 btn btn-danger" style="margin-left:30px;" asp-action="TheIssueNotSolved" asp-controller="Tracking" asp-route-id="@Model.Id">Not Solved</a>
+</div>
+

@@ -9,16 +9,16 @@
 
 <div class="form">
     <form method="post">
-    <h2>Add Resolved Issues</h2>
+    <h2>Add Resolved Reports</h2>
 <div class="mt-3">
 
-    <label class="form-label">Issue </label>
+            <label class="form-label">The Application </label>
     <Select class="form-control" asp-for="IssuesID">
-            <option value="" disabled selected>Select The Issue</option>
+            <option value="" disabled selected>Select The App</option>
 
-        @foreach(var issue in Model.Issues)
+        @foreach(var issue in Model.Applications)
         {
-            <option value="@issue.IssueNumber">@issue.Summary </option> 
+            <option value="@issue.AppId">@issue.AppName</option> 
         }
         
     </Select>
@@ -50,25 +50,15 @@
         </select>
 
 </div>
-
   <div>
+
       <label class="form-label">Date</label>
       <input class="form-control" id="datepicker" asp-for="DatePicker"/>
   </div>
 
-  <div class="mt-3">
-      <label class="form-label">Duration(Hours)</label>
-      <input class="form-control" type="text" asp-for="EstimateTime">
-  </div>
-
     <div class="mt-3">
-        <label class="form-label">Add Comment</label>
-
-        <input class="form-control" type="text" asp-for="Comment">
+        <button class="btn btn-primary" type="submit">Save</button>
     </div>
 
-    <div class="mt-3">
-        <button class="btn btn-primary" type="submit"> Send</button>
-    </div>
 </form>
 </div>

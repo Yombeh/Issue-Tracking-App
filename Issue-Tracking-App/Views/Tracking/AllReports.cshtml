@@ -1,0 +1,83 @@
+﻿@model List<Issue_Tracking_App.Models.IssueListViewModel>;
+
+<h2 style="margin-top: 60px;">All Created Issues</h2>
+<link rel="stylesheet" href="~/css/StyleSheet.css"/>
+
+<table  id="myTable" class="display">
+    <thead>
+        <tr>
+
+            <th>Application</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Status</th>
+            <th>Action</th>
+
+        </tr>
+
+    </thead>
+        <tbody>
+        @foreach(var issue in Model.OrderByDescending( s => s.Id))
+        {
+            <tr>
+                <td>@issue.ApplicationName</td>
+                <td>@issue.Description</td>
+                <td>@issue.CreatedDate</td>
+                <th>
+                @if( issue.AdminStatus == "New")
+                {
+                        <span  class="badge bg-secondary" >@issue.AdminStatus</span>
+                }
+                else if (issue.AdminStatus == "Seen")
+                {
+                        <span class="badge bg-primary">@issue.AdminStatus</span>
+                }
+                 else if (issue.AdminStatus == "Assigned")
+                {
+                        <span class="badge bg-info">@issue.AdminStatus</span>
+                }
+                 else if (issue.AdminStatus == "Tester Assigned")
+                {
+                        <span class="badge bg-warning">@issue.AdminStatus</span>
+                }
+                else if (issue.AdminStatus == "Not Solved")
+                {
+     
+                       <span class="badge bg-danger">@issue.AdminStatus</span>
+                }
+                    else if (issue.AdminStatus == "Solved")
+                    {
+
+                        <span class="badge bg-success">@issue.AdminStatus</span>
+                    }
+                    else if (issue.AdminStatus == "Awaiting Test")
+                    {
+
+                        <span class="badge bg-warning">@issue.AdminStatus</span>
+                    }
+                    else if (issue.AdminStatus == "Done")
+                    {
+
+                        <span  class="badge bg-success">@issue.AdminStatus</span>
+                    }
+
+                </th>
+                <td>
+                    <div class="btn-group">
+                   
+                    <a class="btn btn-primary" asp-controller="Tracking" asp-action="Details" asp-route-id="@issue.Id" style=" "> Detail</a>
+                        @if (issue.AdminStatus == "Not Solved")
+                        {
+                            <a class="btn btn-outline-warning" asp-action="Assign" asp-controller="Tracking" asp-route-id="@issue.Id" style="margin-left:10px;">Assign</a>
+                        }
+                        else if (issue.AdminStatus == "Awaiting Test")
+                        {
+                            <a class="btn btn-outline-warning" asp-action="Test" asp-controller="Tracking" asp-route-id="@issue.Id" style="margin-left:10px;">Assign Tester</a>
+                        }
+                    </div>
+                </td> 
+            </tr>
+        }
+
+    </tbody>
+</table>

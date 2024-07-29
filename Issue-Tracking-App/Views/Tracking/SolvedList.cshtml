@@ -42,23 +42,18 @@
 <h2 >All Resolved Issues </h2>
 </div>
 
-
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>The Issue</th>
+            <th>The Application</th>
 
-            <th>Solved by</th>
+            <th>Developer</th>
 
             <th>Severity</th>
 
-            <th>Created</th>
+            <th>Description</th>
 
             <th>Date</th>
-
-            <th>Duration</th>
-
-            <th>Comment</th>
         </tr>
 
     </thead>
@@ -66,13 +61,13 @@
         @foreach (var solved in Model.OrderByDescending(s => s.IssueNumber))
         {
             <tr>
+
                 <td>@solved.IssuesID</td>
                 <td>@solved.AssigneeID</td>
                 <td>@solved.SeverityID</td>
-                <td>@solved.Created</td>
-                <td>@solved.DatePicker</td>
-                <td>@solved.EstimateTime</td>
                 <td>@solved.Comment</td>
+                <td>@solved.DatePicker</td>
+                
                 <td>
                     <a class="btn btn-primary" type="submit" asp-controller="Tracking" asp-action="EditSolved" asp-route-id="@solved.IssueNumber" >Edit</a>
 

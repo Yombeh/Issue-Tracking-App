@@ -16,13 +16,36 @@
     {
         display: flex;
     }
+    .success
+    {
+        margin-top: 10px;
+    }
 </style>
+
   
     <div style="background-color: deepskyblue; padding: 10px; text-align: center; margin-top:80px;">
     <h1 style="color: white;">ISSUE TRACKING APP</h1>
      </div>
+     <div class="success"></div>
+@if (!String.IsNullOrEmpty(ViewBag.IssueSent))
+{
+    <div id="SuccessAlert" class="alert alert-success" role="alert">
+        @ViewBag.IssueSent
+    </div>
+}
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"> </script>
+<script>
+
+    $(document).ready(function () {
+
+        setTimeout(function () {
+            $("#SuccessAlert").alert('close');
+        },1000);
+    });
+    
+</script>
+
+
 
 <div class="mt-3">
 

@@ -1,0 +1,52 @@
+﻿@model List<Issue_Tracking_App.Models.DeveloperListViewModel>
+<h2 style="margin-top: 80px;">Issues For @ViewBag.DeveloperName</h2>
+
+    <table id="myTable" class="display"> 
+        <thead>
+            <tr>
+
+                <th>User</th>
+                <th>Application</th>
+                <th>Date</th>
+                <th>Severity</th>
+                <th>Status</th>
+                <th>Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach(var report in Model.OrderByDescending(s => s.Id))
+            {
+                <tr>
+                <td>@report.User</td>
+                <td>@report.App</td>
+                <td>@report.Date</td>
+                <td>@report.SeverityLevel</td>
+                <td>@if(report.DevStatus == "New")
+                    {
+                        <span class="badge bg-secondary">@report.DevStatus</span>
+
+                    }else if(report.DevStatus == "Seen")
+                    {
+                        <span class="badge bg-primary">@report.DevStatus</span>
+
+                    }else if(report.DevStatus == "Awaiting Test")
+                    {
+                        <span class="badge bg-warning">@report.DevStatus</span>
+
+                    }else if(report.DevStatus == "Solved")
+                    {
+                        <span class="badge bg-success">@report.DevStatus</span>
+                    }
+                </td>
+
+                <td>
+                    <a class="btn btn-primary" asp-action="DetailsFordev" asp-controller="Tracking" asp-route-id="@report.Id">Solve</a>
+                </td>
+
+                </tr>
+            }
+        </tbody>
+
+    </table>

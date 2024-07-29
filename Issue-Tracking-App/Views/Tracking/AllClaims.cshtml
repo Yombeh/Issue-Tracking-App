@@ -1,0 +1,31 @@
+﻿@model List<Issue_Tracking_App.Models.DifferentUsersViewModel>
+
+<h2 style="margin-top: 60px;"> Authorize Users</h2>
+<table class="table table-striped table-bordered">
+<thead>
+    <tr>
+
+        <th>Name</th>
+        <th>Role</th>
+        <th>Value</th>
+       
+    </tr>
+</thead>
+
+<tbody>
+  @foreach(var role in Model)
+        {
+            <tr>
+
+                <td>@role.UserName</td>
+                <td>@role.role</td>
+                <td>@role.values</td>
+
+                <td>
+                    <a class="btn btn-primary" asp-controller="Tracking" asp-action="EditClaims" asp-route-id="@role.Id">Edit</a>
+                </td>
+                
+            </tr>
+        }
+ </tbody >
+ </table>

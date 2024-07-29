@@ -17,10 +17,32 @@ namespace Issue_Tracking_App.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.3")
+                .HasAnnotation("ProductVersion", "8.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.Applications", b =>
+                {
+                    b.Property<int>("AppId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AppId"));
+
+                    b.Property<string>("AppName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SolvedIssueNumber")
+                        .HasColumnType("int");
+
+                    b.HasKey("AppId");
+
+                    b.HasIndex("SolvedIssueNumber");
+
+                    b.ToTable("Applications");
+                });
 
             modelBuilder.Entity("Issue_Tracking_App.Models.Assignee", b =>
                 {
@@ -42,6 +64,106 @@ namespace Issue_Tracking_App.Migrations
                     b.HasIndex("SolvedIssueNumber");
 
                     b.ToTable("Assignees");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.CommentByDev", b =>
+                {
+                    b.Property<int>("devCommentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("devCommentId"));
+
+                    b.Property<int>("UserReportID")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserReportsUserReportId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("devComment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("devCommentId");
+
+                    b.HasIndex("UserReportsUserReportId");
+
+                    b.ToTable("CommentByDevs");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.CommentByTester", b =>
+                {
+                    b.Property<int>("testerCommementId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("testerCommementId"));
+
+                    b.Property<int>("UserReportID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("testerComment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("testerCommementId");
+
+                    b.ToTable("CommentByTesters");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.Developer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DeveloperName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SeverityID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StatusID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserReportID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Developers");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.DifferentUserRoles", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("values")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("differentUserRoles");
                 });
 
             modelBuilder.Entity("Issue_Tracking_App.Models.Issues", b =>
@@ -68,9 +190,6 @@ namespace Issue_Tracking_App.Migrations
                     b.Property<int>("SeverityID")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SolvedIssueNumber")
-                        .HasColumnType("int");
-
                     b.Property<int>("StatusID")
                         .HasColumnType("int");
 
@@ -79,8 +198,6 @@ namespace Issue_Tracking_App.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("IssueNumber");
-
-                    b.HasIndex("SolvedIssueNumber");
 
                     b.ToTable("Issues");
                 });
@@ -168,6 +285,107 @@ namespace Issue_Tracking_App.Migrations
                     b.ToTable("Statuses");
                 });
 
+            modelBuilder.Entity("Issue_Tracking_App.Models.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tester")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserReportID")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tests");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.Testers", b =>
+                {
+                    b.Property<int>("TesterId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TesterId"));
+
+                    b.Property<string>("testerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TesterId");
+
+                    b.ToTable("Tester");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.UserReports", b =>
+                {
+                    b.Property<int>("UserReportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserReportId"));
+
+                    b.Property<string>("AdminStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ApplicationID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DatePicker")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("DevStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("TesterStatus")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("userName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("UserReportId");
+
+                    b.HasIndex("TestId");
+
+                    b.ToTable("UserReports");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.Applications", b =>
+                {
+                    b.HasOne("Issue_Tracking_App.Models.Solved", null)
+                        .WithMany("Applications")
+                        .HasForeignKey("SolvedIssueNumber");
+                });
+
             modelBuilder.Entity("Issue_Tracking_App.Models.Assignee", b =>
                 {
                     b.HasOne("Issue_Tracking_App.Models.Solved", null)
@@ -175,11 +393,11 @@ namespace Issue_Tracking_App.Migrations
                         .HasForeignKey("SolvedIssueNumber");
                 });
 
-            modelBuilder.Entity("Issue_Tracking_App.Models.Issues", b =>
+            modelBuilder.Entity("Issue_Tracking_App.Models.CommentByDev", b =>
                 {
-                    b.HasOne("Issue_Tracking_App.Models.Solved", null)
-                        .WithMany("Issues")
-                        .HasForeignKey("SolvedIssueNumber");
+                    b.HasOne("Issue_Tracking_App.Models.UserReports", null)
+                        .WithMany("CommentByDev")
+                        .HasForeignKey("UserReportsUserReportId");
                 });
 
             modelBuilder.Entity("Issue_Tracking_App.Models.Severity", b =>
@@ -196,15 +414,32 @@ namespace Issue_Tracking_App.Migrations
                         .HasForeignKey("SolvedIssueNumber");
                 });
 
+            modelBuilder.Entity("Issue_Tracking_App.Models.UserReports", b =>
+                {
+                    b.HasOne("Issue_Tracking_App.Models.Test", null)
+                        .WithMany("UserReports")
+                        .HasForeignKey("TestId");
+                });
+
             modelBuilder.Entity("Issue_Tracking_App.Models.Solved", b =>
                 {
-                    b.Navigation("Assignees");
+                    b.Navigation("Applications");
 
-                    b.Navigation("Issues");
+                    b.Navigation("Assignees");
 
                     b.Navigation("Severities");
 
                     b.Navigation("Statuses");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.Test", b =>
+                {
+                    b.Navigation("UserReports");
+                });
+
+            modelBuilder.Entity("Issue_Tracking_App.Models.UserReports", b =>
+                {
+                    b.Navigation("CommentByDev");
                 });
 #pragma warning restore 612, 618
         }

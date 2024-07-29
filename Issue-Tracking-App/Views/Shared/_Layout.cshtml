@@ -1,18 +1,21 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Issue_Tracking_App</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.0/css/dataTables.dataTables.css" />
+
     <link rel="stylesheet" href="~/css/myCSS.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Issue_Tracking_App.styles.css" asp-append-version="true" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet" />
 
     <link href='https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/ui-lightness/jquery-ui.css'
           rel='stylesheet'>
-
-
 </head>
 <body>
     <header style="position: fixed; top: 0; width: 100%; z-index: 1000;">
@@ -24,8 +27,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarColor01">
                     <ul class="navbar-nav me-auto">
-                        
-                        <li class="nav-item" style="margin-left: 60px">
+                    <li class="nav-item" style="margin-left: 60px">
+                        <!--
                             <a class="nav-link active" asp-controller="Tracking" asp-action="Index">Add Issue</a>
                         </li>
                         <li class="nav-item" style="margin-left: 60px">
@@ -34,16 +37,54 @@
                         <li class="nav-item" style="margin-left: 60px">
                             <a class="nav-link active" asp-controller="Tracking" asp-action="solved">Add Resolved</a>
                         </li>
+                             -->
+                     <li class="nav-item" style="margin-left: 60px">
+                                <a class="nav-link active" asp-controller="Tracking" asp-action="UserPage">Create Issue</a>
+                     </li>
+              
                         <li class="nav-item" style="margin-left: 60px">
-                            <a class="nav-link active" asp-controller="Tracking" asp-action="SolvedList">Resolved List</a>
+                            <a class="nav-link active" asp-controller="Tracking" asp-action="UserInputList">My Created Issues</a>
                         </li>
 
-                    </ul>
-                    <form class="d-flex" asp-controller="Tracking" asp-action="IssueList" method="get">
-                     <input class="form-control me-sm-2" type="text" placeholder="Search Issue by Summary" name="searchString">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "Admin")).Succeeded)
+                            {
 
+                                <li class="nav-item" style="margin-left: 60px">
+                                    <a class="nav-link active" asp-controller="Tracking" asp-action="AllReports">All Reports</a>
+                                </li>
+                                <li class="nav-item" style="margin-left: 60px">
+                                <a class="nav-link active" asp-controller="Tracking" asp-action="DifferentUsers">New Role</a>
+                                </li>
+                                <li class="nav-item" style="margin-left: 60px">
+                                <a class="nav-link active" asp-controller="Tracking" asp-action="AllClaims">Edit Role</a>
+                                </li>
+                                <li class="nav-item" style="margin-left: 60px">
+                                <a class="nav-link active" asp-controller="Tracking" asp-action="TestersList">Awaiting Test</a>
+                            </li>
+                            <li class="nav-item" style="margin-left: 60px">
+                                <a class="nav-link active" asp-controller="Tracking" asp-action="DeveloperList">Awaiting Developer</a>
+                            </li>
+
+                            }
+                            @if ((await AuthorizationService.AuthorizeAsync(User, "Developer")).Succeeded)
+                            {
+                            
+                            }
+                            @if((await AuthorizationService.AuthorizeAsync(User,"Tester")).Succeeded)
+                            {
+                            
+                            }
+                    </ul>
+
+                <!--  @if((await AuthorizationService.AuthorizeAsync(User,"Admin")).Succeeded)
+                    {
+                        <form class="d-flex" asp-controller="Tracking" asp-action="IssueList" method="get">
+                            <input class="form-control me-sm-2" type="text" placeholder="Search Issue by App Name" name="searchString">
+                            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+
+                    } -->
+                   
                 </div>
             </div>
         </nav>
@@ -67,13 +108,26 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.js"></script>
+
+    <script src="https://cdn.datatables.net/2.1.0/js/dataTables.js"></script>
+    
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
         $(function () {
             $("#datepicker").datepicker();
         });
+
+
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
     </script>
+  
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

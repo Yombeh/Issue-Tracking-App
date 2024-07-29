@@ -1,0 +1,62 @@
+﻿@model Issue_Tracking_App.Models.IssueListViewModel
+<h3 style="margin-top: 60px ">Details</h3>
+<table class="table table-bordered table-striped">
+    
+    <tr>
+        <th>User</th>
+        <td>@Model.userName</td>
+    </tr>
+
+    <tr>
+        <th>Application</th>
+        <td>@Model.ApplicationName</td>
+    </tr>
+
+    <tr>
+        <th>Description</th>
+        <td>@Model.Description</td>
+    </tr>
+
+    <tr>
+        <th>Date</th>
+        <td>@Model.DatePicker</td>
+    </tr>
+
+    <tr>
+        <th>Created</th>
+        <td>@Model.CreatedDate</td>
+    </tr>
+    @if(Model.devComments != null)
+    {
+        <tr>
+        <th>Developer</th>
+        <td>
+        @foreach(var comment in Model.devComments)
+        {
+                    <p> *@comment.devComment</p>
+        }
+            </td>
+        </tr>
+    }  
+    
+    @if (Model.testerComments != null)
+    {
+        <tr>
+            <th>Tester</th>
+            <td>
+            @foreach(var comment in Model.testerComments)
+            {
+                    <p>*@comment.testerComment</p>
+            }
+            </td>
+        </tr>
+    }
+</table>
+
+
+<div>
+    <a class="btn btn-primary btn-lg" asp-controller="Tracking" asp-action="Assign" asp-route-id="@Model.Id">Assign</a>
+</div>
+
+
+

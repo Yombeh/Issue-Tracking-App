@@ -18,7 +18,6 @@ namespace Issue_Tracking_App.Models
 
         public DateTime Created { get; set; } = DateTime.Now;
 
-
         public int AssigneeID { get; set; }
 
 
@@ -27,7 +26,7 @@ namespace Issue_Tracking_App.Models
        public String Comment { get; set; }
 
 
-        public IEnumerable<Issues> Issues { get; set; }
+        public IEnumerable<Applications> Applications { get; set; }
         public IEnumerable<Assignee> Assignees { get; set; }
         public IEnumerable<Status> Statuses { get; set; }
         public IEnumerable<Severity> Severities { get; set; }

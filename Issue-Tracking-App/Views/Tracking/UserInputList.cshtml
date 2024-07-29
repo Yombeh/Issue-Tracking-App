@@ -1,0 +1,83 @@
+﻿
+@model List<Issue_Tracking_App.Models.IssueListViewModel>
+
+<h1 style="margin-top:80px">My Created Issues</h1>
+<h3><a href="/Tracking/UserPage"> Back </a></h3>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ @if (!String.IsNullOrEmpty(ViewBag.IssueSent))
+ {
+    <div id="IssueSent" class="alert alert-success" role="alert">
+    @ViewBag.IssueSent
+    </div>
+ }
+
+<script>
+
+    $(document).ready(function(){
+
+        setTimeout(function(){
+            $("#IssueSent").alert('close');
+        },1000);
+
+    });
+
+</script>
+
+
+<table id="myTable" class="display">
+<thead>
+    <tr>
+        <th>Application</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>created</th>
+    </tr>
+
+
+</thead>
+<tbody> 
+    @foreach(var issue in Model.OrderByDescending(s=>s.Id))
+    {
+        <tr>
+
+        <td>@issue.ApplicationName</td>
+        <td>@issue.Description</td>
+                <td>@if(issue.Status == "Sent")
+                    {
+                        <span class="badge bg-secondary">@issue.Status</span>
+                    }else if(issue.Status == "Seen")
+                    {
+                        <span class="badge bg-primary">@issue.Status</span>
+                    }else if(issue.Status == "To be Solved")
+                    {
+                        <span class="badge bg-info">@issue.Status</span>
+                    }else if(issue.Status == "Solving")
+                    {
+                        <span class="badge bg-light">@issue.Status</span>
+                    }else if(issue.Status == "To be Tested")
+                    {
+                        <span class="badge bg-warning">@issue.Status</span>
+                    }else if(issue.Status == "Testing")
+                    {
+                        <span class="badge bg-info">@issue.Status</span>
+                    }else if(issue.Status == "Solved")
+                    {
+                        <span class="badge bg-success">@issue.Status</span>
+                    }else if(issue.Status == "Not Solved"){
+                        <span class="badge bg-danger">@issue.Status</span>
+                    } 
+
+                </td>
+
+                <td>@issue.DatePicker</td>
+
+        <td>@issue.CreatedDate</td>
+      
+        </tr>
+    }
+
+</tbody>
+
+</table>
+

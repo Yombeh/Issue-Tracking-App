@@ -1,39 +1,4 @@
-﻿<style>
-    .doughnut
-    {
-        width: 50%;
-        height: 50%;
-        padding-top: 80px;
-    }
-</style>
+﻿<h2  >LOGIN PAGE</h2>
 
 
-<div class="doughnut">
-    <div></div>
-    <canvas id="myChart"></canvas>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<script>
-    const ctx = document.getElementById('myChart');
-
-    new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Binta Cham', 'Fatou Saidy', 'Lamin Bojang', 'Lala Badjie',],
-            datasets: [{
-                label: 'Assignee',
-                data: [12, 19, 3, 5],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-</script>
